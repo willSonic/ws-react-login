@@ -39,7 +39,6 @@ export default class ApiCore {
 	public async patch(urlPath: string, data): Promise<AxiosResponse['data']> {
 		try {
 			const res = await this._AXIOS.patch(urlPath, data);
-
 			return res.data;
 		} catch (error) {
 			handleErrors(error);
