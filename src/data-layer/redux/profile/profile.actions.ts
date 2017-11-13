@@ -113,7 +113,7 @@ export const actionCreators = {
     type: GET_USER_PROFILE_SUCCESS, payload
   }),
 
-  userRegistrationAttempt: (payload: string ): Actions[typeof REGISTER_USER_ATTEMPT ] => ({
+  userRegistrationAttempt: (payload: RegistrationModel ): Actions[typeof REGISTER_USER_ATTEMPT ] => ({
     type: REGISTER_USER_ATTEMPT, payload
   }),
 

@@ -25,7 +25,7 @@ export const initialState: State = {
   validUserName:null
 };
 
-export function reducer(state = initialState,  action: RootAction): State {
+export function ProfileReducer(state = initialState,  action: RootAction): State {
   switch (action.type) {
       case REGISTER_USER_SUCCESS:
       case EDIT_USER_PROFILE_SUCCESS:

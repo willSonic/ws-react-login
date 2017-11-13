@@ -3,9 +3,12 @@ import {
   Reducer as ReduxReducer,
 } from 'redux';
 
-import { RootState, RootAction } from '@src/redux';
+import { RootReducer } from './root-reducer';
+
+import { RootAction } from './root-action';
 
 export type Dispatch = ReduxDispatch<RootAction>;
-export type Reducer = ReduxReducer<RootState, RootAction>;
+export type Reducer = ReduxReducer<RootReducer>;
 
 export type Api = {};
+

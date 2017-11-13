@@ -15,8 +15,7 @@ import { LOGIN_USER_ATTEMPT,
         LOGIN_USER_FAILURE } from './user.session.actions';
 
 import { REGISTER_USER_ATTEMPT,
-         REGISTER_USER_SUCCESS,
-        REPORT_ERROR } from '../profile/profile.actions';
+         REGISTER_USER_SUCCESS } from '../profile/profile.actions';
 
 
 export interface State {
@@ -39,7 +38,7 @@ export const initialState: State = {
 
 
 
-export default function  UserSessionReducer(state = initialState, action: RootAction): State {
+export function  UserSessionReducer(state = initialState, action: RootAction): State {
   switch (action.type) {
     case REGISTER_USER_ATTEMPT:
     case LOGIN_USER_ATTEMPT:

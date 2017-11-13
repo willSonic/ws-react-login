@@ -1,8 +1,5 @@
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
+import { Observable } from 'rxjs';
 import 'rxjs/add/observable/fromPromise';
-import axios from 'axios';
-
 import axios, { AxiosError, AxiosInstance, AxiosResponse, AxiosRequestConfig } from 'axios';
 
 export default class ApiCore {
@@ -10,7 +7,7 @@ export default class ApiCore {
 	private _AXIOS: AxiosInstance;
 	private _AXIOS_FORM: AxiosInstance;
 
-	constructor(apiConfig: AxiosRequestConfig, apiHost: string) {
+	constructor(apiConfig: AxiosRequestConfig) {
 		this._apiConfig = apiConfig;
 		this._AXIOS = generateAxiosInstance(this._apiConfig);
 		this._AXIOS_FORM = generateFormDataAxiosInstance(this._apiConfig);
@@ -22,11 +19,12 @@ export default class ApiCore {
 
 			return res.data;
 		} catch (error) {
-			handleErrors(error);
+			//handleErrors(error);
+			throw error;
 		}
 	}
 
-	public async get(urlPath: string, params): Promise<AxiosResponse['data']> {
+	public async get(urlPath: string, params:any): Promise<AxiosResponse['data']> {
 		try {
 			const res = await this._AXIOS.get(urlPath, { params });
 
@@ -36,36 +34,39 @@ export default class ApiCore {
 		}
 	}
 
-	public async patch(urlPath: string, data): Promise<AxiosResponse['data']> {
+	public async patch(urlPath: string, data:any): Promise<AxiosResponse['data']> {
 		try {
 			const res = await this._AXIOS.patch(urlPath, data);
+
 			return res.data;
 		} catch (error) {
 			handleErrors(error);
+			throw error;
 		}
 	}
 
-	public async post(urlPath: string, data): Promise<AxiosResponse['data']> {
+	public async post(urlPath: string, data:any): Promise<AxiosResponse['data']> {
 		try {
 			const res = await this._AXIOS.post(urlPath, data);
-
 			return res.data;
 		} catch (error) {
-			handleErrors(error);
+			//handleErrors(error);
+			throw error;
 		}
 	}
 
-	public async postFormData(urlPath: string, data): Promise<AxiosResponse['data']> {
+	public async postFormData(urlPath: string, data:any): Promise<AxiosResponse['data']> {
 		try {
 			const res = await this._AXIOS_FORM.post(urlPath, getFormData(data));
 
 			return res.data;
 		} catch (error) {
-			handleErrors(error);
+			//handleErrors(error);
+			throw error;
 		}
 	}
 
-	public async put(urlPath: string, data): Promise<AxiosResponse['data']> {
+	public async put(urlPath: string, data:any): Promise<AxiosResponse['data']> {
 		try {
 			const res = await this._AXIOS.put(urlPath, data);
 
@@ -79,6 +80,13 @@ export default class ApiCore {
 		this._apiConfig = newConfig;
 		this._AXIOS = generateAxiosInstance(this._apiConfig);
 		this._AXIOS_FORM = generateFormDataAxiosInstance(this._apiConfig);
+	}
+
+
+	/* public get axios instance for testing purposes */
+
+	public getAxiosInstance(): AxiosInstance{
+		return this._AXIOS;
 	}
 }
 
@@ -94,7 +102,7 @@ function generateFormDataAxiosInstance(apiConfig: AxiosRequestConfig): AxiosInst
 	return generateAxiosInstance(formDataConfig);
 }
 
-function getFormData(object): FormData {
+function getFormData(object:any): FormData {
 	const formData: FormData = new FormData();
 
 	Object.keys(object).forEach(key => formData.append(key, object[key]));
@@ -104,14 +112,14 @@ function getFormData(object): FormData {
 
 function handleErrors(error: AxiosError): void {
 	if (error.response) {
-		console.error(error.response.data);
-		console.error(error.response.status);
-		console.error(error.response.headers);
+		console.log(error.response.data);
+		console.log(error.response.status);
+		console.log(error.response.headers);
 	} else if (error.request) {
-		console.error(error.request);
+		console.log(error.request);
 	} else {
-		console.error('Api Core Error', error.message);
+		console.log('Api Core Error', error.message);
 	}
 
-	console.error(error.config);
+	console.log(error.config);
 }

@@ -3,23 +3,13 @@
     "outDir": "./dist/",
     "sourceMap": true,
     "noImplicitAny": true,
-    "module": "es2015",
-    "moduleResolution": "node",
+    "module": "commonjs",
+    "lib": [ "es2015", "dom" ],
     "target": "es5",
-    "jsx": "react",
-    "allowJs": true,
-    "lib": ["es5", "es6", "dom", "es7", "esnext"],
-    "strictNullChecks": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "allowSyntheticDefaultImports": true,
-    "baseUrl": ".",
-    "paths": {
-      "redux": ["typings/redux.d.ts"],
-      "shared/*": ["src/shared/*"],
-      "schema": ["src/base/schema"]
-    }
+    "allowJs": true
   },
-  "include": ["./src"],
-  "exclude": ["./src/**/*.test.tsx"]
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
 }

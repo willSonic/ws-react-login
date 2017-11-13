@@ -54,7 +54,7 @@ export const actionCreators = {
     type: APP_START_CLEAR_LOGIN,
   }),
 
-  userLoginAttempt: (payload: SessionModel): Actions[typeof LOGIN_USER_ATTEMPT] => ({
+  userLoginAttempt: (payload:SessionModel): Actions[typeof LOGIN_USER_ATTEMPT] => ({
     type: LOGIN_USER_ATTEMPT, payload,
   }),
 

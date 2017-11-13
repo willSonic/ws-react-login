@@ -14,10 +14,10 @@ import * as userSessionActions from '../user-session/user.session.actions';
 
 
 
-export default class ErrorEpic {
+export class ErrorEpic {
 
 
-        static catchAllRemoteErros = ( action$: ActionsObservable<any>) =>
+        static catchAllRemoteErrors = ( action$: ActionsObservable<any>) =>
                 action$.ofType(errorActions.REPORT_ERROR)
                     .switchMap(({ payload }) => {
                         let obs;

@@ -17,7 +17,7 @@ const initialState: State = {
   requestedURL:''
 };
 
-export default function  LayoutReducer(state = initialState, action: RootAction): State {
+export function  LayoutReducer(state = initialState, action: RootAction): State {
   switch (action.type) {
     case HIDE_LOGIN_DIALOG: {
       return {

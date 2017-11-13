@@ -5,21 +5,26 @@ import 'rxjs/add/operator/withLatestFrom';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/observable/of';
 
-import * as errorActions from './error.actions';
+import * as errorActions from '../error/error.actions';
 import * as profileActions from '../profile/profile.actions';
-import * as userSessionActions from '../user-session/user.session.actions';
+
+import { ActionsObservable, Epic } from 'redux-observable';
+
+import * as fromRoot from '../root-reducer';
+import { RootAction } from '../root-action';
 
 import { UserServices } from '../../api/user.service';
 
 
+const  userServices:UserServices = new UserServices();
 
-export default class ProfileEpic {
+export class ProfileEpic {
 
 
 
-        static registerUser = ( action$: ActionsObservable<any>) =>
+        static registerUser$ = ( action$: ActionsObservable<any>) =>
                 action$.ofType(profileActions.REGISTER_USER_ATTEMPT)
-                .switchMap(({ payload }) => { this.userServices.registerUser( payload,
+                .switchMap(({ payload }) => { return userServices.registerUser( payload,
                                                         errorActions.REPORT_ERROR,
                                                         profileActions.REGISTER_USER_FAILURE,
                                                         profileActions.REGISTER_USER_SUCCESS)
@@ -29,17 +34,18 @@ export default class ProfileEpic {
 
 
 
-        static getUserByName = ( action$: ActionsObservable<any>) =>
+        static getUserByName$ =( action$: ActionsObservable<any>) =>
                 action$.ofType(profileActions.CHECK_USER_PROFILE_NAME_ATTEMPT)
-                .switchMap(({ payload }) => { this.userServices.getUserByName( payload,
-                                                        errorActions.ErrorTypes.REPORT_ERROR,
-                                                        profileActions.ProfileTypes.CHECK_USER_PROFILE_NAME_FAILURE,
-                                                        profileActions.ProfileTypes.CHECK_USER_PROFILE_NAME_SUCCESS)
+                .switchMap(({ payload }) => { return userServices.getUserByName( payload,
+                                                        errorActions.REPORT_ERROR,
+                                                        profileActions.CHECK_USER_PROFILE_NAME_FAILURE,
+                                                        profileActions.CHECK_USER_PROFILE_NAME_SUCCESS)
                                                         });
 
-        static getUserProfile = ( action$: ActionsObservable<any>) =>
+        static getUserProfile$ = ( action$: ActionsObservable<any>) =>
                 action$.ofType(profileActions.GET_USER_PROFILE_ATTEMPT)
-               .withLatestFrom( this.store.select(fromRoot.getProfileEntities) )
+               .withLatestFrom([fromRoot.getProfileEntities])
+               .map( ([ {payload} , profileEntities ]) => [payload, {profileEntities} ] )
                .switchMap(([username, profileEntities]) => {
                 const existsInStore = Object.keys(profileEntities).filter(
                                            entity=> {
@@ -51,7 +57,7 @@ export default class ProfileEpic {
                         if(existsInStore && existsInStore.length>0 ) {
                           obs =  Observable.of( profileActions.actionCreators.setProfileSelectedId(existsInStore[0]));
                         }else {
-                          obs = this.userServices.getUserByName( username,
+                          obs = userServices.getUserByName( username,
                                                                  errorActions.REPORT_ERROR,
                                                                  profileActions.CHECK_USER_PROFILE_NAME_FAILURE,
                                                                  profileActions.GET_USER_PROFILE_SUCCESS );

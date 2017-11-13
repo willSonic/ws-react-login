@@ -13,49 +13,50 @@ import { ActionsObservable } from 'redux-observable';
 
 import { push } from 'react-router-redux';
 
-import * as errorActions from './error.actions';
-import * as profileActions from '../profile/profile.actions';
+import * as errorActions from '../error/error.actions';
 import * as userSessionActions from '../user-session/user.session.actions';
 
-import { UserServices } from '../../api-services/user.service';
+import { UserServices } from '../../api/user.service';
 
 
-export default class UserSessionEpic {
+const  userServices:UserServices = new UserServices();
+
+export class UserSessionEpic {
+
 
   //@Effect()  startAppClearUser$  = Observable.of(new usersessionActions.AppStartLoginClear());
 
 
 
 
-        static loginUser = ( action$: ActionsObservable<any>) =>
+        static loginUser$ = ( action$: ActionsObservable<any>) =>
                 action$.ofType(userSessionActions.LOGIN_USER_ATTEMPT)
-                    .switchMap(({ payload }) => {
-                            this.userServices.loginUser( payload,
+                    .switchMap( (payload) => {
+                          return  userServices.loginUser( payload,
                             errorActions.REPORT_ERROR,
-                            usersessionActions.LOGIN_USER_FAILURE,
-                            usersessionActions.LOGIN_USER_SUCCESS)
+                            userSessionActions.LOGIN_USER_FAILURE,
+                            userSessionActions.LOGIN_USER_SUCCESS);
                     });
 
 
-        static logoutUser = ( action$: ActionsObservable<any>) =>
-                action$.ofType(usersessionActions.LOGIN_USER_ATTEMPT)
-                    .switchMap(({ payload }) => {
-                            this.logoutUser.loginUser( payload,
-                            errorActions.REPORT_ERROR,
-                            usersessionActions.LOGIN_USER_FAILURE,
-                            usersessionActionss.LOGIN_USER_SUCCESS)
+        static logoutUser$ = ( action$: ActionsObservable<any>) =>
+                action$.ofType(userSessionActions.LOGOUT_USER_ATTEMPT)
+                    .switchMap( (payload) => {
+                           return userServices.logoutUser(errorActions.REPORT_ERROR,
+                                                          userSessionActions.LOGOUT_USER_FAILURE,
+                                                          userSessionActions.LOGOUT_USER_SUCCESS);
                     });
 
 
-        static logoutUserSuccess = ( action$: ActionsObservable<any>) =>
+        static logoutUserSuccess$ = ( action$: ActionsObservable<any>) =>
                 action$.ofType(userSessionActions.LOGOUT_USER_SUCCESS)
                  .switchMap((payload)=> Observable.of(push('/')));
 
 
 
         static removeErrorModelCheckUserFailure$ = ( action$: ActionsObservable<any>) =>
-                action$.ofType(usersessionActions.LOGIN_USER_FAILURE)
-                 .switchMap(payload =>  Observable.of( errorActions.RemoveError(payload)));
+                action$.ofType(userSessionActions.LOGIN_USER_FAILURE)
+                 .switchMap(payload =>  Observable.of( errorActions.actionCreators.removeError(payload)));
 
 
 }

@@ -19,7 +19,7 @@ export const initialState: State = {
 
 
 
-export default function ErrorReducer(state = initialState, action: RootAction): State {
+export function ErrorReducer(state = initialState, action: RootAction): State {
 
   switch (action.type) {
     case REPORT_ERROR: {
