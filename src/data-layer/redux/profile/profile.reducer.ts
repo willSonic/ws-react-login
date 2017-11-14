@@ -15,14 +15,15 @@ export  interface State {
   ids: string[];
   entities: { [id: string]: UserModel };
   selectedProfileId: string | null;
-  validUserName:string;
+  validUserName:boolean
 }
 
-export const initialState: State = {
-  ids: [],
+
+export const initialState : State = {
+  ids:[],
   entities: {},
   selectedProfileId: null,
-  validUserName:null
+  validUserName:false
 };
 
 export function ProfileReducer(state = initialState,  action: RootAction): State {
@@ -30,11 +31,11 @@ export function ProfileReducer(state = initialState,  action: RootAction): State
       case REGISTER_USER_SUCCESS:
       case EDIT_USER_PROFILE_SUCCESS:
       case GET_USER_PROFILE_SUCCESS:{
-          let user:UserModel;
+          //let user:UserModel;
           if(action.payload.hasOwnProperty('user') ||
              action.payload.hasOwnProperty('username')) {
               const user:UserModel = action.payload.hasOwnProperty('user')? <UserModel>(action.payload.user) : <UserModel>(action.payload);
-              if (state.ids.indexOf(user.id) > -1) {
+              if( user && state.ids.indexOf(user.id) > -1) {
                 return state;
               }
 

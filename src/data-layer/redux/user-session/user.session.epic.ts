@@ -31,8 +31,8 @@ export class UserSessionEpic {
 
         static loginUser$ = ( action$: ActionsObservable<any>) =>
                 action$.ofType(userSessionActions.LOGIN_USER_ATTEMPT)
-                    .switchMap( (payload) => {
-                          return  userServices.loginUser( payload,
+                    .switchMap( ( {payload}) => {
+                         return  userServices.loginUser( payload,
                             errorActions.REPORT_ERROR,
                             userSessionActions.LOGIN_USER_FAILURE,
                             userSessionActions.LOGIN_USER_SUCCESS);
@@ -41,7 +41,7 @@ export class UserSessionEpic {
 
         static logoutUser$ = ( action$: ActionsObservable<any>) =>
                 action$.ofType(userSessionActions.LOGOUT_USER_ATTEMPT)
-                    .switchMap( (payload) => {
+                    .switchMap( () => {
                            return userServices.logoutUser(errorActions.REPORT_ERROR,
                                                           userSessionActions.LOGOUT_USER_FAILURE,
                                                           userSessionActions.LOGOUT_USER_SUCCESS);
@@ -50,13 +50,13 @@ export class UserSessionEpic {
 
         static logoutUserSuccess$ = ( action$: ActionsObservable<any>) =>
                 action$.ofType(userSessionActions.LOGOUT_USER_SUCCESS)
-                 .switchMap((payload)=> Observable.of(push('/')));
+                 .switchMap( () => Observable.of(push('/')));
 
 
 
         static removeErrorModelCheckUserFailure$ = ( action$: ActionsObservable<any>) =>
                 action$.ofType(userSessionActions.LOGIN_USER_FAILURE)
-                 .switchMap(payload =>  Observable.of( errorActions.actionCreators.removeError(payload)));
+                 .switchMap( ( {payload}) =>  Observable.of( errorActions.actionCreators.removeError(payload)));
 
 
 }

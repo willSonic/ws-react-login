@@ -1,8 +1,8 @@
 import { UserModel  } from '../../../business-layer/models/user.model';
 import { SessionModel  } from '../../../business-layer/models/session.model';
 
-import * as profileActions from '../profile/profile.actions';
-import * as userSessionActions from '../user-session/user.session.actions';
+//import * as profileActions from '../profile/profile.actions';
+//import * as userSessionActions from '../user-session/user.session.actions';
 import { RootAction } from '../root-action';
 
 
@@ -49,12 +49,14 @@ export function  UserSessionReducer(state = initialState, action: RootAction): S
     case REGISTER_USER_SUCCESS:
     case LOGIN_USER_SUCCESS: {
           if(action.payload.hasOwnProperty('user')) {
-             const user:UserModel = <UserModel>(action.payload.user);
+             //const user:UserModel = <UserModel>(action.payload.user);
              const session:SessionModel = <SessionModel> action.payload;
-             if (state.user.hasOwnProperty('id') && (state.user.id === session.user.id)) {
+             if (session && session.user && state.user.hasOwnProperty('id') && (state.user.id === session.user.id)) {
                 return state;
              }
-             localStorage.setItem('Authorized',  session.token);
+             if(session.token){
+                 localStorage.setItem('Authorized',  session.token);
+             }
              return Object.assign({}, state, session, {loading:false, loaded:true,  errorMessage:''});
           }else {
               return state;
@@ -63,7 +65,7 @@ export function  UserSessionReducer(state = initialState, action: RootAction): S
 
     case GET_SESSION_USER_SUCCESS: {
          const session:SessionModel= <SessionModel> action.payload;
-         if (state.user.hasOwnProperty('id') && (state.user.id === session.user.id)) {
+         if (state.user.hasOwnProperty('id') && session && session.user && (state.user.id === session.user.id)) {
             return state;
          }
          return Object.assign({}, state, session);
