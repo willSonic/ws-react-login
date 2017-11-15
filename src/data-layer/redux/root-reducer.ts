@@ -9,7 +9,6 @@ import * as fromUserSession  from './user-session/user.session.reducer';
 import * as fromProfile from './profile/profile.reducer';
 
 
-import { RootAction} from "./root-action";
 
 interface StoreEnhancerState { }
 
@@ -30,8 +29,6 @@ export const RootReducer = combineReducers<RootState>({
   usersessions:fromUserSession.UserSessionReducer,
   profiles: fromProfile.ProfileReducer
 });
-
-
 
 
 /**

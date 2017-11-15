@@ -5,7 +5,7 @@ var profile_actions_1 = require("../profile/profile.actions");
 exports.initialState = {
     ids: [],
     entities: {},
-    selectedProfileId: null,
+    selectedProfileId: '',
     validUserName: false
 };
 function ProfileReducer(state, action) {
@@ -18,7 +18,7 @@ function ProfileReducer(state, action) {
             if (action.payload.hasOwnProperty('user') ||
                 action.payload.hasOwnProperty('username')) {
                 var user = action.payload.hasOwnProperty('user') ? (action.payload.user) : (action.payload);
-                if (user && state.ids.indexOf(user.id) > -1) {
+                if (user.hasOwnProperty('id') && state.ids.indexOf(user.id) > -1) {
                     return state;
                 }
                 return {

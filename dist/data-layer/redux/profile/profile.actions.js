@@ -24,7 +24,7 @@ exports.actionCreators = {
     checkUserProfileNameSuccess: function (payload) { return ({
         type: exports.CHECK_USER_PROFILE_NAME_SUCCESS, payload: payload,
     }); },
-    resetUserNameVailid: function (payload) { return ({
+    resetUserNameVailid: function () { return ({
         type: exports.RESET_USER_PROFILE_NAME_VALID
     }); },
     setProfileSelectedId: function (payload) { return ({

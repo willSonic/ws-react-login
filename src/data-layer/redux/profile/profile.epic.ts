@@ -8,10 +8,9 @@ import 'rxjs/add/observable/of';
 import * as errorActions from '../error/error.actions';
 import * as profileActions from '../profile/profile.actions';
 
-import { ActionsObservable, Epic } from 'redux-observable';
+import { ActionsObservable } from 'redux-observable';
 
 import * as fromRoot from '../root-reducer';
-import { RootAction } from '../root-action';
 
 import { UserServices } from '../../api/user.service';
 

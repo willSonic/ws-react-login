@@ -19,21 +19,21 @@ import { REGISTER_USER_ATTEMPT,
 
 
 export interface State {
-  user: UserModel;
-  token: string |null;
+  user: UserModel | null;
+  token: string | undefined;
   loading: boolean;
   loaded:boolean;
-  errorMessage:string |null;
+  errorMessage:string | undefined;
 }
 
 
 
-export const initialState: State = {
-  user: {},
-  token:'',
-  errorMessage:'',
+export const initialState : State = {
+  user:  null,
+  token: '',
   loading: false,
-  loaded:false
+  loaded: false,
+  errorMessage: ''
 };
 
 
@@ -51,7 +51,7 @@ export function  UserSessionReducer(state = initialState, action: RootAction): S
           if(action.payload.hasOwnProperty('user')) {
              //const user:UserModel = <UserModel>(action.payload.user);
              const session:SessionModel = <SessionModel> action.payload;
-             if (session && session.user && state.user.hasOwnProperty('id') && (state.user.id === session.user.id)) {
+             if (session && session.user && state.user && state.user.hasOwnProperty('id') && (state.user.id === session.user.id)) {
                 return state;
              }
              if(session.token){
@@ -65,7 +65,7 @@ export function  UserSessionReducer(state = initialState, action: RootAction): S
 
     case GET_SESSION_USER_SUCCESS: {
          const session:SessionModel= <SessionModel> action.payload;
-         if (state.user.hasOwnProperty('id') && session && session.user && (state.user.id === session.user.id)) {
+         if (state.user && session && session.user && (state.user.id === session.user.id)) {
             return state;
          }
          return Object.assign({}, state, session);
@@ -77,7 +77,7 @@ export function  UserSessionReducer(state = initialState, action: RootAction): S
     }
 
     case LOGIN_USER_FAILURE:{
-          return Object.assign({}, { user:{},
+          return Object.assign({}, { user:null,
                                      token:'',
                                      loading:false,
                                      loaded:false,

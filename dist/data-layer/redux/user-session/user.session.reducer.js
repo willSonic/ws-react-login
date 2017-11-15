@@ -3,11 +3,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var user_session_actions_1 = require("./user.session.actions");
 var profile_actions_1 = require("../profile/profile.actions");
 exports.initialState = {
-    user: {},
+    user: null,
     token: '',
-    errorMessage: '',
     loading: false,
-    loaded: false
+    loaded: false,
+    errorMessage: ''
 };
 function UserSessionReducer(state, action) {
     if (state === void 0) { state = exports.initialState; }
@@ -23,7 +23,7 @@ function UserSessionReducer(state, action) {
             if (action.payload.hasOwnProperty('user')) {
                 //const user:UserModel = <UserModel>(action.payload.user);
                 var session = action.payload;
-                if (session && session.user && state.user.hasOwnProperty('id') && (state.user.id === session.user.id)) {
+                if (session && session.user && state.user && state.user.hasOwnProperty('id') && (state.user.id === session.user.id)) {
                     return state;
                 }
                 if (session.token) {
@@ -37,7 +37,7 @@ function UserSessionReducer(state, action) {
         }
         case user_session_actions_1.GET_SESSION_USER_SUCCESS: {
             var session = action.payload;
-            if (state.user.hasOwnProperty('id') && session && session.user && (state.user.id === session.user.id)) {
+            if (state.user && session && session.user && (state.user.id === session.user.id)) {
                 return state;
             }
             return Object.assign({}, state, session);
@@ -47,7 +47,7 @@ function UserSessionReducer(state, action) {
             return Object.assign({}, state, { user: {}, token: '', loading: false, loaded: false, errorMessage: '' });
         }
         case user_session_actions_1.LOGIN_USER_FAILURE: {
-            return Object.assign({}, { user: {},
+            return Object.assign({}, { user: null,
                 token: '',
                 loading: false,
                 loaded: false,

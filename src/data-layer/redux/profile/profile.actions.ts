@@ -93,7 +93,7 @@ export const actionCreators = {
     type: CHECK_USER_PROFILE_NAME_SUCCESS, payload,
   }),
 
-  resetUserNameVailid: ( payload:string ): Actions[typeof RESET_USER_PROFILE_NAME_VALID ] => ({
+  resetUserNameVailid: ( ): Actions[typeof RESET_USER_PROFILE_NAME_VALID ] => ({
     type: RESET_USER_PROFILE_NAME_VALID
   }),
 

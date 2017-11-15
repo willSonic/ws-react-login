@@ -16,40 +16,40 @@ const apiConfig: AxiosRequestConfig = {
     timeout: 15000
 };
 
-let  newUser = (<any>Object).assign( {}, {
-    username: 'vixen',
-    firstname: 'George',
-    lastname: 'Washington',
-    password: 'pass1111',
-    email: 'seeds@nest.com'
-});
+// let  newUser = (<any>Object).assign( {}, {
+//     username: 'vixen',
+//     firstname: 'George',
+//     lastname: 'Washington',
+//     password: 'pass1111',
+//     email: 'seeds@nest.com'
+// });
 
 //{ "username": "vixen", "firstname": "George", "lastname": "Washington",  "password": "pass1111"  ,"email": "seeds@nest.com" }
 
-
-const newUseresult =  (<any>Object).assign( {},
-    {
-        "account": {
-            "user": {
-                "id": "a1235",
-                "username": "vixen",
-                "firstname": "George",
-                "lastname": "Washington",
-                "email": "seeds@nest.com"
-            },
-            "token": "testcaseA"
-        }
-    });
-
-
-const  userLogin = (<any>Object).assign( {}, {
-    username: 'vixen',
-    password: 'pass1111'
-});
-
-const  badUserReaults = (<any>Object).assign( {}, {
-    "error": "incorrect input"
-});
+//
+// const newUseresult =  (<any>Object).assign( {},
+//     {
+//         "account": {
+//             "user": {
+//                 "id": "a1235",
+//                 "username": "vixen",
+//                 "firstname": "George",
+//                 "lastname": "Washington",
+//                 "email": "seeds@nest.com"
+//             },
+//             "token": "testcaseA"
+//         }
+//     });
+//
+//
+// const  userLogin = (<any>Object).assign( {}, {
+//     username: 'vixen',
+//     password: 'pass1111'
+// });
+//
+// const  badUserReaults = (<any>Object).assign( {}, {
+//     "error": "incorrect input"
+// });
 
 //
 // const  badUserLogin = (<any>Object).assign( {}, {

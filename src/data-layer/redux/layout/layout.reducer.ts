@@ -1,4 +1,3 @@
-import * as layout from './layout.actions';
 import { RootAction } from '../root-action';
 
 import { HIDE_LOGIN_DIALOG,

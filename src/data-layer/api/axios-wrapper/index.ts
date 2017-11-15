@@ -1,4 +1,3 @@
-import { Observable } from 'rxjs';
 import 'rxjs/add/observable/fromPromise';
 import axios, { AxiosError, AxiosInstance, AxiosResponse, AxiosRequestConfig } from 'axios';
 

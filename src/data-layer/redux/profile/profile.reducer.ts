@@ -14,16 +14,16 @@ import { REGISTER_USER_SUCCESS,
 export  interface State {
   ids: string[];
   entities: { [id: string]: UserModel };
-  selectedProfileId: string | null;
-  validUserName:boolean
+  selectedProfileId: string | '';
+  validUserName:boolean;
 }
 
 
 export const initialState : State = {
   ids:[],
   entities: {},
-  selectedProfileId: null,
-  validUserName:false
+  selectedProfileId: '',
+  validUserName: false
 };
 
 export function ProfileReducer(state = initialState,  action: RootAction): State {
@@ -35,7 +35,7 @@ export function ProfileReducer(state = initialState,  action: RootAction): State
           if(action.payload.hasOwnProperty('user') ||
              action.payload.hasOwnProperty('username')) {
               const user:UserModel = action.payload.hasOwnProperty('user')? <UserModel>(action.payload.user) : <UserModel>(action.payload);
-              if( user && state.ids.indexOf(user.id) > -1) {
+              if( user.hasOwnProperty('id') && state.ids.indexOf( user.id ) > -1) {
                 return state;
               }
 
@@ -101,6 +101,6 @@ export const getSelectedProfileId = (state: State) => state.selectedProfileId;
 export const getValidUserName = (state: State) => state.validUserName;
 
 export const getSelectedProfile  = createSelector(getEntities, getSelectedProfileId, (entities, selectedProfileId) => {
-  return entities[selectedProfileId];
+  return entities[ selectedProfileId ];
 });
 
