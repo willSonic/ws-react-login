@@ -1,5 +1,6 @@
 import { HttpWrapperService } from './http.wrapper.service';
 import { HttpParams } from './interfaces/httpParams.model';
+import { AuthModel } from '../../business-layer/models';
 
 export class UserServices {
     httpWrapperService: HttpWrapperService;
@@ -37,7 +38,7 @@ export class UserServices {
       return this.httpWrapperService.get( getParams );
     }
 
-    loginUser(payload: {username: string, password: string },
+    loginUser(payload:AuthModel,
               ErrorActionType:string, SpecificErrorType:string, SuccessType:string ) {
       let postParams: HttpParams = {
         auth: false,

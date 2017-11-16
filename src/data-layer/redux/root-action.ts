@@ -5,8 +5,11 @@ import { Actions as ProfileActions } from './profile/profile.actions';
 import { Actions as LayoutActions } from './layout/layout.actions';
 import { Actions as UserSessionActions } from './user-session/user.session.actions';
 
+import { actionCreators as UserSessionActionCreators } from './user-session/user.session.actions';
+
 type ReactRouterAction = RouterAction | LocationChangeAction;
 
+export const UserSessionActionCreators = UserSessionActionCreators;
 
 export type RootAction =
   | ReactRouterAction

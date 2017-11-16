@@ -1,11 +1,17 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+
 import './index.scss';
 import { App } from './view-layer/app-stage/App';
 //import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 //import darktBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
+
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
+
+
+import { store } from './data-layer/redux/index';
 
 
 const muiTheme = getMuiTheme({
@@ -20,7 +26,9 @@ const muiTheme = getMuiTheme({
 
 ReactDOM.render(
 	<MuiThemeProvider muiTheme={muiTheme}>
-		<App />
+        <Provider store={store}>
+            <App />
+        </Provider>
 	</MuiThemeProvider>,
 	document.getElementById('root')
 );

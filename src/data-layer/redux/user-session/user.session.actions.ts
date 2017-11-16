@@ -1,4 +1,4 @@
-import { SessionModel, ErrorModel } from '../../../business-layer/models/index'
+import { SessionModel, ErrorModel,AuthModel } from '../../../business-layer/models/index'
 
 export const APP_START_CLEAR_LOGIN   = 'APP_START_CLEAR_LOGIN';
 export const LOGIN_USER_ATTEMPT      = 'LOGIN_USER_ATTEMPT';
@@ -16,7 +16,7 @@ export type Actions = {
           },
      LOGIN_USER_ATTEMPT: {
              type:  typeof LOGIN_USER_ATTEMPT,
-             payload: SessionModel
+             payload: AuthModel
           },
      LOGIN_USER_FAILURE: {
              type:  typeof LOGIN_USER_FAILURE,
@@ -54,7 +54,7 @@ export const actionCreators = {
     type: APP_START_CLEAR_LOGIN,
   }),
 
-  userLoginAttempt: (payload:SessionModel): Actions[typeof LOGIN_USER_ATTEMPT] => ({
+  userLoginAttempt: (payload:AuthModel): Actions[typeof LOGIN_USER_ATTEMPT] => ({
     type: LOGIN_USER_ATTEMPT, payload,
   }),
 
@@ -62,12 +62,12 @@ export const actionCreators = {
     type: LOGIN_USER_FAILURE, payload,
   }),
 
-  userLoginSuccess: (payload: any): Actions[typeof LOGIN_USER_SUCCESS] => ({
+  userLoginSuccess: (payload: SessionModel): Actions[typeof LOGIN_USER_SUCCESS] => ({
     type: LOGIN_USER_SUCCESS, payload,
   }),
 
-  userLogoutAttempt: (payload: SessionModel): Actions[typeof LOGOUT_USER_ATTEMPT] => ({
-    type: LOGOUT_USER_ATTEMPT, payload,
+  userLogoutAttempt: (): Actions[typeof LOGOUT_USER_ATTEMPT] => ({
+    type: LOGOUT_USER_ATTEMPT,
   }),
 
   userLogoutFailure: (payload: ErrorModel): Actions[typeof LOGOUT_USER_FAILURE] => ({
