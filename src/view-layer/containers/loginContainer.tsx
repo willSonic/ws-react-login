@@ -5,42 +5,50 @@ import { UserSessionActionCreators } from '../../data-layer/redux/root-action';
 import { AuthModel } from '../../business-layer/models';
 import LoginForm  from "../components/loginForm";
 
+interface IProps {}
 
 interface IAuthProps{
-    login: (obj: Object) => void;
+    login: (loginData:AuthModel) => void;
 }
+
 interface IAuthState{
-    loginData?:AuthModel
+    hasLoggedInUser$:boolean,
+    loginData:AuthModel
 }
 
 
 //   this.handleSignup = this.handleSignup.bind(this);
-const  mapStateToProps = (state: RootState) => ( {
+const  mapStateToProps = (state: RootState): IAuthState => (
+    {
+        loginData:  {
+                        username:'',
+                        password:'' ,
+                        error:''
+                     } as AuthModel,
+
         hasLoggedInUser$: state.usersessions.token !=='' ? true:false
-});
+   });
 
 // for call isLoggedin
-const mapDispatchToProps = (dispatch: Dispatch) => {
-    return {
+const mapDispatchToProps = (dispatch: Dispatch):IAuthProps => (
+     {
         login: (loginData:AuthModel): void =>
                   dispatch(UserSessionActionCreators.userLoginAttempt(loginData))
-    };
-}
+    }
+);
+
+export interface IConnectedProps extends IProps, IAuthProps, IAuthState { }
 
 
-class LoginContainer extends React.Component<IAuthProps, IAuthState> {
+export class LoginContainer extends React.Component<IConnectedProps, IAuthState> {
 
 
-    constructor(props:IAuthProps) {
+    constructor(props:IConnectedProps) {
         super(props);
         this.handleLogin = this.handleLogin.bind(this);
         this.handleValidation = this.handleValidation.bind(this);
-        const intialLoginData =  {
-                                  username:'',
-                                  password:'' ,
-                                  error:''
-                                 } as AuthModel;
-        this.state = { loginData:intialLoginData}
+
+        //this.state = { loginData: props.loginData };
     }
 
     handleValidation(fieldName:string, value: string){
@@ -48,7 +56,8 @@ class LoginContainer extends React.Component<IAuthProps, IAuthState> {
        const updateState:AuthModel =  Object.assign(  {...this.state.loginData},   {[fieldName]: value}) as AuthModel;
        const nextState =  Object.assign({
                                                   ...this.state
-                                                },{
+                                                },
+                                         {
                                                   loginData:updateState
                                                 });
 
@@ -73,4 +82,4 @@ class LoginContainer extends React.Component<IAuthProps, IAuthState> {
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginContainer)
+export default  connect<IAuthState, IAuthProps, IProps>(mapStateToProps, mapDispatchToProps)(LoginContainer)
