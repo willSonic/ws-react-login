@@ -7,6 +7,7 @@ var redux_1 = require("redux");
 var redux_observable_1 = require("redux-observable");
 var root_reducer_1 = require("./root-reducer");
 var root_epic_1 = require("./root-epic");
+__export(require("./root-action"));
 __export(require("./root-reducer"));
 __export(require("./root-epic"));
 var epicMiddleware = redux_observable_1.createEpicMiddleware(root_epic_1.RootEpic);

@@ -3,7 +3,7 @@ import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 
 import './index.scss';
-import {  App } from './view-layer/app-stage/App';
+//import {  App } from './view-layer/app-stage/App';
 import {  HomePage } from './view-layer/by-route/home/homePage';
 //import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 //import darktBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
@@ -28,8 +28,7 @@ const muiTheme = getMuiTheme({
 ReactDOM.render(
 	<MuiThemeProvider muiTheme={muiTheme}>
         <Provider store={store}>
-            <App />
-            <HomePage />
+               <HomePage />
         </Provider>
 	</MuiThemeProvider>,
 	document.getElementById('root')

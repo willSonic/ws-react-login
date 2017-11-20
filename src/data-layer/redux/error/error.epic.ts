@@ -20,8 +20,9 @@ export class ErrorEpic {
         static catchAllRemoteErrors = ( action$: ActionsObservable<any>) =>
                 action$.ofType(errorActions.REPORT_ERROR)
                     .switchMap(({ payload }) => {
+                        console.log('ErrorEpic ----- payload =', payload)
                         let obs;
-                        switch(payload.action.type) {
+                        switch(payload.action_type) {
 
                              case profileActions.CHECK_USER_PROFILE_NAME_FAILURE:
                               if(window.location.href.indexOf('register')>0) {

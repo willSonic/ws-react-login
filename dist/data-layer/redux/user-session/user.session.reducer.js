@@ -47,11 +47,13 @@ function UserSessionReducer(state, action) {
             return Object.assign({}, state, { user: {}, token: '', loading: false, loaded: false, errorMessage: '' });
         }
         case user_session_actions_1.LOGIN_USER_FAILURE: {
+            var result = Object.assign({}, action.payload.message);
+            console.log('UserSessionReducer ----- result =', result.data.error, '|--------');
             return Object.assign({}, { user: null,
                 token: '',
                 loading: false,
                 loaded: false,
-                errorMessage: action.payload.message });
+                errorMessage: result.data.error });
         }
         default: {
             return state;

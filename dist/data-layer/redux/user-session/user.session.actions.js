@@ -22,8 +22,8 @@ exports.actionCreators = {
     userLoginSuccess: function (payload) { return ({
         type: exports.LOGIN_USER_SUCCESS, payload: payload,
     }); },
-    userLogoutAttempt: function (payload) { return ({
-        type: exports.LOGOUT_USER_ATTEMPT, payload: payload,
+    userLogoutAttempt: function () { return ({
+        type: exports.LOGOUT_USER_ATTEMPT,
     }); },
     userLogoutFailure: function (payload) { return ({
         type: exports.LOGOUT_USER_FAILURE, payload: payload,

@@ -37,6 +37,8 @@ export default class LoginComponent extends React.Component<LoginProps, any> {
                                     className="btn btn-default"
                                     onClick={() => {  this.props.onSave() }  }
                                     />
+
+                                    <p> { this.props.userAuth.error }</p>
                                 </form>
                            );
             }

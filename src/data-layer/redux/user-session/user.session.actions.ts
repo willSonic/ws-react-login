@@ -27,8 +27,7 @@ export type Actions = {
              payload: any
           },
      LOGOUT_USER_ATTEMPT: {
-             type:  typeof LOGOUT_USER_ATTEMPT,
-             payload: SessionModel
+             type:  typeof LOGOUT_USER_ATTEMPT
           },
      LOGOUT_USER_FAILURE: {
              type:  typeof  LOGOUT_USER_FAILURE,
@@ -54,7 +53,7 @@ export const actionCreators = {
     type: APP_START_CLEAR_LOGIN,
   }),
 
-  userLoginAttempt: (payload:AuthModel): Actions[typeof LOGIN_USER_ATTEMPT] => ({
+  userLoginAttempt: (payload:AuthModel) => ({
     type: LOGIN_USER_ATTEMPT, payload,
   }),
 

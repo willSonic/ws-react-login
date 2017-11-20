@@ -77,11 +77,13 @@ export function  UserSessionReducer(state = initialState, action: RootAction): S
     }
 
     case LOGIN_USER_FAILURE:{
-          return Object.assign({}, { user:null,
+           const result:any = Object.assign({},  action.payload.message )
+           console.log('UserSessionReducer ----- result =', result.data.error,'|--------')
+           return Object.assign({}, { user:null,
                                      token:'',
                                      loading:false,
                                      loaded:false,
-                                     errorMessage:action.payload.message});
+                                     errorMessage: result.data.error });
     }
 
     default: {

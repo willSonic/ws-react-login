@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { RootState, Dispatch } from '../../data-layer/redux';
-import { UserSessionActionCreators } from '../../data-layer/redux/root-action';
+import { RootState } from '../../data-layer/redux';
+import  * as Actions from '../../data-layer/redux/root-action';
 import { AuthModel } from '../../business-layer/models';
 import LoginForm  from "../components/loginForm";
 
@@ -12,6 +12,7 @@ interface IAuthProps{
 }
 
 interface IAuthState{
+    loginState:any,
     hasLoggedInUser$:boolean,
     loginData:AuthModel
 }
@@ -25,15 +26,15 @@ const  mapStateToProps = (state: RootState): IAuthState => (
                         password:'' ,
                         error:''
                      } as AuthModel,
+        hasLoggedInUser$: state.usersessions.token !=='' ? true:false,
+        loginState: { user: state.usersessions.user, error:state.usersessions.errorMessage},
 
-        hasLoggedInUser$: state.usersessions.token !=='' ? true:false
    });
 
 // for call isLoggedin
-const mapDispatchToProps = (dispatch: Dispatch):IAuthProps => (
+const mapDispatchToProps = (dispatch: any):IAuthProps => (
      {
-        login: (loginData:AuthModel): void =>
-                  dispatch(UserSessionActionCreators.userLoginAttempt(loginData))
+        login: (loginData:AuthModel): void => dispatch( Actions.UserSessionActionCreators.userLoginAttempt(loginData) ),
     }
 );
 
@@ -42,13 +43,18 @@ export interface IConnectedProps extends IProps, IAuthProps, IAuthState { }
 
 export class LoginContainer extends React.Component<IConnectedProps, IAuthState> {
 
+    timerID:any;
 
     constructor(props:IConnectedProps) {
         super(props);
         this.handleLogin = this.handleLogin.bind(this);
         this.handleValidation = this.handleValidation.bind(this);
+        this.timerID = null;
 
-        //this.state = { loginData: props.loginData };
+        this.state = { loginData: props.loginData,
+                       hasLoggedInUser$:props.hasLoggedInUser$,
+                       loginState: props.loginState};
+
     }
 
     handleValidation(fieldName:string, value: string){
@@ -67,17 +73,44 @@ export class LoginContainer extends React.Component<IConnectedProps, IAuthState>
     handleLogin() {
 	    const modelData: AuthModel = this.state.loginData as AuthModel;
 		this.props.login( modelData) ;
+
+        if(!this.timerID){
+            this.timerID = setInterval(
+                () => this.tick(),
+                1000
+            );
+        }
+
 	}
 
 
+    tick() {
+
+        if(!this.state.loginState.error){
+
+        }else if(this.state.loginState.user){
+
+        }
+
+        console.log('LoginContainer -- tick() --- this.state.usersessions.errorMessage ', this.props.loginState.error)
+    }
+
+
+
+    componentWillUnmount() {
+        clearInterval(this.timerID);
+    }
+
 	render(){
-	  return (
+        return(
+           <div>
               < LoginForm
-                userAuth={ this.state.loginData }
-                onChange={ this.handleValidation }
-                onSave={ this.handleLogin }
+                userAuth= { this.state.loginData }
+                onChange= { this.handleValidation }
+                onSave= { this.handleLogin }
               />
-            );
+           </div>
+        )
 	}
 }
 
