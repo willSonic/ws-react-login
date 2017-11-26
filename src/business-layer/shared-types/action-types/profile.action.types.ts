@@ -1,21 +1,21 @@
 
-export const CHECK_USER_PROFILE_NAME_ATTEMPT = '[ProfileActions] check user-session Profile nam attempt';
-export const CHECK_USER_PROFILE_NAME_SUCCESS = '[ProfileActions] check user-session Profile name success';
-export const CHECK_USER_PROFILE_NAME_FAILURE = '[ProfileActions] check user-session Profile name failure';
+export const CHECK_USER_PROFILE_NAME_ATTEMPT = 'CHECK_USER_PROFILE_NAME_ATTEMPT';
+export const CHECK_USER_PROFILE_NAME_SUCCESS = 'CHECK_USER_PROFILE_NAME_SUCCESS';
+export const CHECK_USER_PROFILE_NAME_FAILURE = 'CHECK_USER_PROFILE_NAME_FAILURE';
 
-export const RESET_USER_PROFILE_NAME_VALID = '[ProfileActions] reset user-session Profile name valid';
+export const RESET_USER_PROFILE_NAME_VALID = 'RESET_USER_PROFILE_NAME_VALID';
 
-export const SET_SELECTED_PROFILE_ID = '[ProfileActions] set selectedUserId in Profile reducer';
+export const SET_SELECTED_PROFILE_ID = 'SET_SELECTED_PROFILE_ID';
 
 
-export const GET_USER_PROFILE_ATTEMPT = '[ProfileActions] get user-session Profile attempt';
-export const GET_USER_PROFILE_FAILURE = '[ProfileActions] get user-session Profile failure';
-export const GET_USER_PROFILE_SUCCESS = '[ProfileActions] get user-session Profile success';
+export const GET_USER_PROFILE_ATTEMPT = 'GET_USER_PROFILE_ATTEMPT';
+export const GET_USER_PROFILE_FAILURE = 'GET_USER_PROFILE_FAILURE';
+export const GET_USER_PROFILE_SUCCESS = 'GET_USER_PROFILE_SUCCESS';
 
-export const EDIT_USER_PROFILE_ATTEMPT = '[ProfileActions] update user-session Profile attempt';
-export const EDIT_USER_PROFILE_SUCCESS = '[ProfileActions] update user-session Profile succes';
-export const EDIT_USER_PROFILE_FAILURE = '[ProfileActions] update user-session Profile failure';
+export const EDIT_USER_PROFILE_ATTEMPT = 'EDIT_USER_PROFILE_ATTEMPT';
+export const EDIT_USER_PROFILE_SUCCESS = 'EDIT_USER_PROFILE_SUCCESS';
+export const EDIT_USER_PROFILE_FAILURE = 'EDIT_USER_PROFILE_FAILURE';
 
-export const REGISTER_USER_FAILURE = '[ProfileActions] user-session registration failed';
-export const REGISTER_USER_ATTEMPT = '[ProfileActions] user-session registration attempt';
-export const REGISTER_USER_SUCCESS = '[ProfileActions] user-session registration successful';
+export const REGISTER_USER_FAILURE = 'REGISTER_USER_FAILURE';
+export const REGISTER_USER_ATTEMPT = 'REGISTER_USER_ATTEMPT';
+export const REGISTER_USER_SUCCESS = 'REGISTER_USER_SUCCESS';

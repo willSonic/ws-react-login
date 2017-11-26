@@ -70,43 +70,35 @@ export class LoginContainer extends React.Component<IConnectedProps, IAuthState>
         this.setState(nextState);
    }
 
-    handleLogin() {
-	    const modelData: AuthModel = this.state.loginData as AuthModel;
+    handleLogin(inputData: any) {
+	    const modelData: AuthModel = inputData as AuthModel;
+        console.log('LoginContainer --handleLogin --- modelData = ',modelData)
 		this.props.login( modelData) ;
-
-        if(!this.timerID){
-            this.timerID = setInterval(
-                () => this.tick(),
-                1000
-            );
-        }
-
 	}
-
-
-    tick() {
-
-        if(!this.state.loginState.error){
-
-        }else if(this.state.loginState.user){
-
-        }
-
-        console.log('LoginContainer -- tick() --- this.state.usersessions.errorMessage ', this.props.loginState.error)
-    }
-
-
-
-    componentWillUnmount() {
-        clearInterval(this.timerID);
-    }
+    //
+    //
+    // tick() {
+    //
+    //     if(!this.state.loginState.error){
+    //
+    //     }else if(this.state.loginState.user){
+    //
+    //     }
+    //
+    //     console.log('LoginContainer -- tick() --- this.state.usersessions.errorMessage ', this.props.loginState.error)
+    // }
+    //
+    //
+    //
+    // componentWillUnmount() {
+    //     clearInterval(this.timerID);
+    // }
 
 	render(){
         return(
            <div>
               < LoginForm
                 userAuth= { this.state.loginData }
-                onChange= { this.handleValidation }
                 onSave= { this.handleLogin }
               />
            </div>

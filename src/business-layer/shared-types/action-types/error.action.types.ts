@@ -1,3 +1,3 @@
 
-export const REPORT_ERROR = '[ReportOccurenceOfError] error occured';
-export const REMOVE_ERROR = '[RemovePreviousError] remove previous error';
+export const REPORT_ERROR = 'REPORT_ERROR';
+export const REMOVE_ERROR = 'REMOVE_ERROR';

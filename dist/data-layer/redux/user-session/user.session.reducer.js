@@ -48,7 +48,7 @@ function UserSessionReducer(state, action) {
         }
         case user_session_actions_1.LOGIN_USER_FAILURE: {
             var result = Object.assign({}, action.payload.message);
-            console.log('UserSessionReducer ----- result =', result.data.error, '|--------');
+            console.log('UserSessionReducer ----- result =', result, '|--------');
             return Object.assign({}, { user: null,
                 token: '',
                 loading: false,
